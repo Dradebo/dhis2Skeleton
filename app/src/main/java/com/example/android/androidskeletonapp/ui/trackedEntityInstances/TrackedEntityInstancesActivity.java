@@ -11,6 +11,8 @@ import com.example.android.androidskeletonapp.R;
 import com.example.android.androidskeletonapp.data.Sdk;
 import com.example.android.androidskeletonapp.data.service.ActivityStarter;
 import com.example.android.androidskeletonapp.ui.base.ListActivity;
+
+import org.hisp.dhis.android.core.organisationunit.OrganisationUnit;
 import org.hisp.dhis.android.core.trackedentity.TrackedEntityInstanceCollectionRepository;
 
 import java.util.ArrayList;
@@ -52,6 +54,7 @@ public class TrackedEntityInstancesActivity extends ListActivity {
         compositeDisposable = new CompositeDisposable();
         observeTrackedEntityInstances();
         orgUnit = Sdk.d2().organisationUnitModule().organisationUnits()
+                .byOrganisationUnitScope(OrganisationUnit.Scope.SCOPE_DATA_CAPTURE)
                 .one().blockingGet().uid();
         if (isEmpty(selectedProgram))
             findViewById(R.id.enrollmentButton).setVisibility(View.GONE);
